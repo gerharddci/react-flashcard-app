@@ -26,9 +26,18 @@ function App() {
 
 
     if (editor) {
-        return <Editor cards={cards} addCard={addCard} removeCard={removeCard} setCards={setCards} switchMode={switchMode}/>;
+        return <Editor
+            cards={cards}
+            addCard={addCard}
+            removeCard={removeCard}
+            setCards={setCards}
+            switchMode={switchMode}
+            />;
     } else {
-        return <Viewer cards={cards} switchMode={switchMode}/>;
+        return <Viewer
+            cards={cards}
+            switchMode={switchMode}
+            />;
     }
 }
 

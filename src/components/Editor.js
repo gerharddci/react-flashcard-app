@@ -49,6 +49,7 @@ const Editor = function(props) {
     ));
 
     let inputElem;
+
     if (editing) {
         inputElem = (
             <div>
@@ -83,12 +84,8 @@ const Editor = function(props) {
                     {rows}
                 </tbody>
             </table>
-
             {inputElem}
-
-
             <hr />
-
             <button onClick={props.switchMode}>Go to Viewer</button>
         </div>
     );
