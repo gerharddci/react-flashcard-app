@@ -31,9 +31,10 @@ const Editor = function(props) {
 
     const updateCard = (index, front, back) => {
         const newCards = [...cards];
-        newCards[index].front = front;
-        newCards[index].back = back;
+        newCards[index].front = front || cards[index].front;
+        newCards[index].back = back || cards[index].back;
         setCards(newCards);
+        setEditing(false);
         setFront('');
         setBack('');
     }
