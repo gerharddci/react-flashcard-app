@@ -4,8 +4,10 @@ import '../App.css';
 const Editor = function(props) {
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
+    const [editing, setEditing] = useState(false);
 
     const cards = props.cards;
+    const updateCard = props.updateCard;
 
     const handleChange = (event) => {
         if (event.target.name === 'front') {
@@ -26,8 +28,29 @@ const Editor = function(props) {
             <td>{card.front}</td>
             <td>{card.back}</td>
             <td><button onClick={() => props.removeCard(i)}>Delete</button></td>
+            <td><button onClick={() => props.removeCard(i)}>Edit</button></td>
         </tr>
     ));
+
+    let inputElem;
+
+    if (editing) {
+        inputElem = (
+            <div>
+                <input onChange={handleChange}  name="front" value={front} placeholder="Front of card" />
+                <input onChange={handleChange}  name="back" value={back} placeholder="Back of card" />
+                <button onClick={updateCard}>Update Card</button>;
+            </div>
+        );
+    } else {
+        inputElem = (
+            <div>
+                <input onChange={handleChange}  name="front" value={front} placeholder="Front of card" />
+                <input onChange={handleChange}  name="back" value={back} placeholder="Back of card" />
+                <button onClick={addCard}>Add Card</button>;
+            </div>
+        );
+    }
 
     return (
         <div className="container">
@@ -38,17 +61,15 @@ const Editor = function(props) {
                         <th>Front</th>
                         <th>Back</th>
                         <th>Delete</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
                     {rows}
                 </tbody>
             </table>
-            <div>
-                <input onChange={handleChange}  name="front" value={front} placeholder="Front of card" />
-                <input onChange={handleChange}  name="back" value={back} placeholder="Back of card" />
-                <button onClick={addCard}>Add Card</button>
-            </div>
+
+            {inputElem}
 
             <hr />
 
