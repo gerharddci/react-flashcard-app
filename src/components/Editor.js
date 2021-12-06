@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 const Editor = function(props) {
@@ -86,7 +87,9 @@ const Editor = function(props) {
             </table>
             {inputElem}
             <hr />
-            <button onClick={props.switchMode}>Go to Viewer</button>
+            <nav>
+                <Link to="/viewer">Go to Viewer</Link>
+            </nav>
         </div>
     );
 }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Editor from './Editor';
 
 const Viewer = function(props) {
     const cards = props.cards;
@@ -12,7 +14,7 @@ const Viewer = function(props) {
     }
 
     const flipCard = () => {
-        setFrontSide(false);
+        setFrontSide(!frontSide);
     };
 
 
@@ -26,7 +28,9 @@ const Viewer = function(props) {
             </div>
             <button onClick={showNext}>Next card</button>
             <hr />
-            <button className="switch" onClick={props.switchMode}>Go to Editor</button>
+            <nav>
+                <Link to="/" element={<Editor />}>Go to Editor</Link>
+            </nav>
         </div>
     );
 }
