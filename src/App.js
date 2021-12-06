@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Editor from './components/Editor';
+import Viewer from './components/Viewer';
+
+// const initialCards = [
+//     {
+//         front: 'go to beginning of line',
+//         back: '0'
+//     },
+//     {
+//         front: 'delete line under cursor',
+//         back: 'dd'
+//     }
+// ];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [editor, setEditor] = useState(true);
+    const [cards, setCards] = useState([]);
+
+    const switchMode = () => setEditor(!editor); 
+
+    const addCard = (card) => {
+        setCards([...cards, card]);
+    };
+
+    const removeCard = (index) => {
+        const newCards = cards.filter((card, i) => i !== index);
+        setCards(newCards);
+    };
+
+
+    if (editor) {
+        return <Editor cards={cards} addCard={addCard} removeCard={removeCard} switchMode={switchMode}/>;
+    } else {
+        return <Viewer cards={cards} switchMode={switchMode}/>;
+    }
 }
 
 export default App;
