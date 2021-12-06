@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 import Editor from './components/Editor';
 import Viewer from './components/Viewer';
+import './App.css';
 
-// const initialCards = [
-//     {
-//         front: 'go to beginning of line',
-//         back: '0'
-//     },
-//     {
-//         front: 'delete line under cursor',
-//         back: 'dd'
-//     }
-// ];
 
 function App() {
+    const getInitialState = () => JSON.parse(localStorage.getItem('cards')) || [];
+    const [cards, setCards] = useState(getInitialState);
     const [editor, setEditor] = useState(true);
-    const [cards, setCards] = useState([]);
+
+    useEffect(() => {
+        localStorage.setItem('cards', JSON.stringify(cards));
+    }, [cards]);
 
     const switchMode = () => setEditor(!editor); 
 
