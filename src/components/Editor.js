@@ -5,9 +5,10 @@ const Editor = function(props) {
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
     const [editing, setEditing] = useState(false);
+    const [current, setCurrent] = useState(0);
 
     const cards = props.cards;
-    const updateCard = props.updateCard;
+    const setCards = props.setCards;
 
     const handleChange = (event) => {
         if (event.target.name === 'front') {
@@ -23,23 +24,36 @@ const Editor = function(props) {
         setBack('');
     };
 
+    const editCard = (ind) => {
+        setEditing(true);
+        setCurrent(ind);
+    };
+
+    const updateCard = (index, front, back) => {
+        const newCards = [...cards];
+        newCards[index].front = front;
+        newCards[index].back = back;
+        setCards(newCards);
+        setFront('');
+        setBack('');
+    }
+
     const rows = cards.map((card, i) => (
         <tr key={i}>
             <td>{card.front}</td>
             <td>{card.back}</td>
             <td><button onClick={() => props.removeCard(i)}>Delete</button></td>
-            <td><button onClick={() => props.removeCard(i)}>Edit</button></td>
+            <td><button onClick={() => editCard(i)}>Edit</button></td>
         </tr>
     ));
 
     let inputElem;
-
     if (editing) {
         inputElem = (
             <div>
-                <input onChange={handleChange}  name="front" value={front} placeholder="Front of card" />
-                <input onChange={handleChange}  name="back" value={back} placeholder="Back of card" />
-                <button onClick={updateCard}>Update Card</button>;
+                <input onChange={handleChange}  name="front" value={front} placeholder={cards[current].front} />
+                <input onChange={handleChange}  name="back" value={back} placeholder={cards[current].back} />
+                <button onClick={() => updateCard(current, front, back)}>Update Card</button>;
             </div>
         );
     } else {
@@ -70,6 +84,7 @@ const Editor = function(props) {
             </table>
 
             {inputElem}
+
 
             <hr />
 

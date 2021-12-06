@@ -29,16 +29,9 @@ function App() {
         setCards(newCards);
     };
 
-    const updateCard = (index, front, back) => {
-        const newCards = [...cards];
-        newCards[index].front = front;
-        newCards[index].back = back;
-        setCards(newCards);
-    }
-
 
     if (editor) {
-        return <Editor cards={cards} addCard={addCard} removeCard={removeCard} updateCard={updateCard} switchMode={switchMode}/>;
+        return <Editor cards={cards} addCard={addCard} removeCard={removeCard} setCards={setCards} switchMode={switchMode}/>;
     } else {
         return <Viewer cards={cards} switchMode={switchMode}/>;
     }
